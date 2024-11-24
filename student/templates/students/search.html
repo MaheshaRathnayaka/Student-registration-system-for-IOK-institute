@@ -1,0 +1,36 @@
+{% extends "students/base.html" %} {% block content %}
+
+<h2>Student Search</h2>
+
+<!-- Search Form -->
+<form method="get" action="{% url 'student_search' %}">
+  <input
+    type="text"
+    name="q"
+    placeholder="Search students..."
+    value="{{ request.GET.q }}"
+  />
+  <button type="submit">Search</button>
+</form>
+
+<!-- Search Results -->
+{% if students %} {% if students.count > 0 %}
+<h3>Search Results</h3>
+<ul>
+  {% for student in students %}
+  <div>
+    <li>
+      <strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}<br />
+      <strong>Date of Birth:</strong> {{ student.date_of_birth }}<br />
+      <strong>Gender:</strong> {{ student.gender }}<br />
+      <strong>Email:</strong> {{ student.email }}<br />
+      <strong>Phone Number:</strong> {{ student.phone_number }}<br />
+      <strong>Registration Date:</strong> {{ student.registration_date }}
+    </li>
+  </div>
+
+  {% endfor %}
+</ul>
+{% else %}
+<p>No students found matching your query.</p>
+{% endif %} {% endif %} {% endblock %}
